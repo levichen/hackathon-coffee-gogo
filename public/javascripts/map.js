@@ -1,8 +1,13 @@
+var app = angular.module('gogo', []);
+app.controller('index', function($scope) {
+	$scope.store = [{id: 1, name: '餐廳awd'},{name: '餐廳wawd'},{name: '餐廳awdaw'},{name: '餐廳awdawd'},{name: '餐廳bb'}];
+});
 (function() {
     navigator.geolocation && getLocation();
     function getLocation() {
 			navigator.geolocation.getCurrentPosition(function(position) {
 				var coords = position.coords;
+				console.log(coords);
 					$.ajax({
 							url : '/getContent',
 							type : 'post',
@@ -41,7 +46,7 @@
 													strokeWeight: 0,
 													scale: 1/4
 												},
-												label: '<i class="map-icon-walking"></i>'
+												label: '<i class="map-icon-synagogue"></i>'
 											});
 										};
 

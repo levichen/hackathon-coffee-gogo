@@ -1,0 +1,114 @@
+<% extend 'views/layout.html' %>
+<link rel="stylesheet" href="/icon/css/map-icons.css"></link>
+<style>
+.sidebar {
+	position: fixed;
+	top: 47px;
+	left: 0;
+	bottom: 0;
+	width: 40%;
+	overflow-y: scroll;
+	-webkit-overflow-scrolling: touch;
+	background: #f7f7f7;
+}
+.map {
+	position: fixed;
+	top: 47px;
+	right: 0;
+	bottom: 0;
+	width: 60%;
+	overflow-y: hidden;
+	-webkit-overflow-scrolling: touch;
+	background: #f7f7f7;
+}
+.col-middle-alt {
+	float: none;
+	display: inline-block;
+	vertical-align: middle;
+	margin-right: -4px;
+}
+label {
+	display: block;
+	padding-top: 9px;
+	padding-bottom: 8px;
+}
+.filters-section {
+	padding-top: 10px;
+	padding-bottom: 10px;
+	background: white;
+}
+[type="text"], [type="password"], [type="search"], [type="email"], [type="url"], [type="tel"], textarea, select, .input-prefix, .input-suffix {
+	display: block;
+	padding: 8px 10px;
+	width: 100%;
+}
+
+.checkbox.panel {
+	padding-left: 40px;
+}
+.panel {
+	border: 1px solid #dce0e0;
+	background-color: #fff;
+	border-radius: 4px;
+	padding: 5px;
+	margin: 10px 0px;
+	width: 100px;
+}
+.panel-dark, .panel-header {
+	background-color: #edefed;
+}
+.search_result {
+	padding: 10px;
+}
+.img-rounded {
+	margin: 10px;
+}
+</style>
+<div class="container" ng-controller="index">
+	<div class="sidebar">
+		<div class="filters-section intro-filter panel-body panel-light">
+			<div class="row">
+				<div class="col-xs-4 col-middle-alt text-center-sm row-space-sm-1 filter-label">
+				<label>分類</label>
+				</div>
+				<form class="col-xs-8 col-middle-alt trip-form">
+					<div class="row">
+						<div class="col-xs-12 row-space-1-sm">
+								<select class="form-control">
+									<option>餐廳</option>
+									<option>咖啡廳</option>
+								</select>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+		<div class="filters-section intro-filter panel-body panel-light">
+			<div class="row" style="border-top: 1px dashed #ccc;">
+				<div class="col-xs-4 col-middle-alt text-center-sm row-space-sm-1 filter-label">
+					<label>過濾器</label>
+				</div>
+				<form class="col-xs-8 col-middle-alt trip-form">
+					<div class="row">
+						<div class="col-xs-12 row-space-1-sm">
+							<label class="checkbox panel panel-dark"><input type="checkbox" ng-model="filter.wifi" /> Wifi </label>
+						</div>
+					</div>
+				</form>
+				</div>
+			</div>
+			<div class="search_result">
+				<div ng-repeat="a in store track by a.name" class="row">
+				<div class="col-xs-6">
+					<img data-src="holder.js/140x140" class="img-rounded" alt="140x140" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMTQwIiBoZWlnaHQ9IjE0MCIgdmlld0JveD0iMCAwIDE0MCAxNDAiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjxkZWZzLz48cmVjdCB3aWR0aD0iMTQwIiBoZWlnaHQ9IjE0MCIgZmlsbD0iI0VFRUVFRSIvPjxnPjx0ZXh0IHg9IjQ0LjA0Njg3NSIgeT0iNzAiIHN0eWxlPSJmaWxsOiNBQUFBQUE7Zm9udC13ZWlnaHQ6Ym9sZDtmb250LWZhbWlseTpBcmlhbCwgSGVsdmV0aWNhLCBPcGVuIFNhbnMsIHNhbnMtc2VyaWYsIG1vbm9zcGFjZTtmb250LXNpemU6MTBwdDtkb21pbmFudC1iYXNlbGluZTpjZW50cmFsIj4xNDB4MTQwPC90ZXh0PjwvZz48L3N2Zz4=" data-holder-rendered="true" style="width: 140px; height: 140px;">
+					</div>
+				<div class="col-xs-6" style="height: 140px;padding:20px 10px;">{{a.name}}</div>
+				</div>
+			</div>
+	</div>
+	<div class="map">
+		<div id="map-canvas"></div>
+	</div>
+</div>
+
+
