@@ -1,7 +1,7 @@
 var request = require('request');
 var fs      = require('fs');
 
-var data = fs.readFileSync('./missing_list.txt');
+var data = fs.readFileSync('./t.txt');
 
 data.toString().split('\n').forEach(function (address) { 
     var url = 'http://maps.googleapis.com/maps/api/geocode/json?address='+address+'=false';
