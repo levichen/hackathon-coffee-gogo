@@ -3,6 +3,7 @@ app.controller('index', function($scope, $http, $timeout) {
 	var coords = {latitude: 25.046974, longitude: 121.513091};
 	navigator.geolocation && getLocation();
 	var promise;
+    var wifi = false;
 	var $slider = $('#distince').slider({
 		formatter: function(value) {
 			return '距離 ' + value;
@@ -141,13 +142,24 @@ app.controller('index', function($scope, $http, $timeout) {
 	$scope.filter = function() {
 		$scope.stores = [];
 		for(var i in stores) {
-			if(!$scope.type || $scope.type.chName == stores[i].category) {
-				$scope.stores.push(stores[i])
-				markers[i].setMap(map);
-			}
-			else {
-				markers[i].setMap(null);
-			}
+            if($scope.wifi) {
+                if(stores[i].wifi) {
+                    $scope.stores.push(stores[i])
+                    markers[i].setMap(map);
+                }
+                else {
+                    markers[i].setMap(null);
+                }
+            }
+            else {
+                if(!$scope.type || $scope.type.chName == stores[i].category) {
+                    $scope.stores.push(stores[i])
+                    markers[i].setMap(map);
+                }
+                else {
+                    markers[i].setMap(null);
+                }
+            }
 
 		}
 	}

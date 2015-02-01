@@ -95,17 +95,17 @@ label {
 		</div>
 		<div class="filters-section intro-filter panel-body panel-light">
 			<div class="row" style="border-top: 1px dashed #ccc;">
-				<div class="col-xs-4 col-middle-alt text-center-sm row-space-sm-1 filter-label">
+				<div class="col-xs-4 col-middle-alt text-center-sm row-space-sm-1 filter-label" >
 					<label>過濾器</label>
 				</div>
 				<form class="col-xs-8 col-middle-alt trip-form">
 					<div class="row">
 						<div class="col-xs-12 row-space-1-sm">
-							<label class="checkbox panel panel-dark"><input type="checkbox" ng-model="filter.wifi" /> Wifi </label>
+							<label class="checkbox panel panel-dark"><input type="checkbox" ng-change="filter()" ng-model="wifi" /> Wifi </label>
 						</div>
 					</div>
 				<div class="row">
-						<div class="col-xs-12 row-space-1-sm">
+						<div class="col-xs-12 row-space-1-sm" style="margin-top:20px">
 							<input id="distince" data-slider-id='ex1Slider' type="text" data-slider-min="100" data-slider-max="2000" data-slider-step="100" data-slider-value="300"/>
 						</div>
 					</div>
@@ -136,6 +136,12 @@ label {
                                     <li ng-if="store.desc">Desc : {{store.desc}} </li>
                                     <li ng-if="store.weekday_text">
                                         營業時間 : {{store.weekday_text}}
+                                    </li>
+                                    <li ng-if="store.wifi">
+                                        <span style="color:red" aria-hidden="true">WiFi 無線熱點</span>
+                                    </li>
+                                    <li ng-if="store.plug">
+                                        <span style="color:red" aria-hidden="true">免費插座</span>
                                     </li>
                                 </ul>
                             </div>
