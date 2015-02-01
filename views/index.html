@@ -63,6 +63,9 @@ label {
 .img-rounded {
 	margin: 10px;
 }
+.info, .info li {
+	padding-left: 0px;
+}
 </style>
 <div class="container" ng-controller="index">
 	<div class="sidebar">
@@ -74,9 +77,8 @@ label {
 				<form class="col-xs-8 col-middle-alt trip-form">
 					<div class="row">
 						<div class="col-xs-12 row-space-1-sm">
-								<select class="form-control">
-									<option>餐廳</option>
-									<option>咖啡廳</option>
+								<select ng-change="filter()" ng-options="type.chName for type in types" class="form-control" ng-model="type">
+									<option value="">請選擇分類</option>
 								</select>
 						</div>
 					</div>
@@ -94,15 +96,28 @@ label {
 							<label class="checkbox panel panel-dark"><input type="checkbox" ng-model="filter.wifi" /> Wifi </label>
 						</div>
 					</div>
+				<div class="row">
+						<div class="col-xs-12 row-space-1-sm">
+							<input id="distince" data-slider-id='ex1Slider' type="text" data-slider-min="100" data-slider-max="2000" data-slider-step="100" data-slider-value="300"/>
+						</div>
+					</div>
+
 				</form>
 				</div>
 			</div>
 			<div class="search_result">
-				<div ng-repeat="a in store track by a.name" class="row">
-				<div class="col-xs-6">
-					<img data-src="holder.js/140x140" class="img-rounded" alt="140x140" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMTQwIiBoZWlnaHQ9IjE0MCIgdmlld0JveD0iMCAwIDE0MCAxNDAiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjxkZWZzLz48cmVjdCB3aWR0aD0iMTQwIiBoZWlnaHQ9IjE0MCIgZmlsbD0iI0VFRUVFRSIvPjxnPjx0ZXh0IHg9IjQ0LjA0Njg3NSIgeT0iNzAiIHN0eWxlPSJmaWxsOiNBQUFBQUE7Zm9udC13ZWlnaHQ6Ym9sZDtmb250LWZhbWlseTpBcmlhbCwgSGVsdmV0aWNhLCBPcGVuIFNhbnMsIHNhbnMtc2VyaWYsIG1vbm9zcGFjZTtmb250LXNpemU6MTBwdDtkb21pbmFudC1iYXNlbGluZTpjZW50cmFsIj4xNDB4MTQwPC90ZXh0PjwvZz48L3N2Zz4=" data-holder-rendered="true" style="width: 140px; height: 140px;">
+				<div ng-mouseover="focus(store)" ng-mouseleave="unfocus(store)" ng-repeat="store in stores" class="row">
+					<div style="float:left;height: 140px;width:140px;padding: 10px;margin-right: 28px;">
+						<img data-src="holder.js/140x140" class="img-rounded" alt="140x140" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMTQwIiBoZWlnaHQ9IjE0MCIgdmlld0JveD0iMCAwIDE0MCAxNDAiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjxkZWZzLz48cmVjdCB3aWR0aD0iMTQwIiBoZWlnaHQ9IjE0MCIgZmlsbD0iI0VFRUVFRSIvPjxnPjx0ZXh0IHg9IjQ0LjA0Njg3NSIgeT0iNzAiIHN0eWxlPSJmaWxsOiNBQUFBQUE7Zm9udC13ZWlnaHQ6Ym9sZDtmb250LWZhbWlseTpBcmlhbCwgSGVsdmV0aWNhLCBPcGVuIFNhbnMsIHNhbnMtc2VyaWYsIG1vbm9zcGFjZTtmb250LXNpemU6MTBwdDtkb21pbmFudC1iYXNlbGluZTpjZW50cmFsIj4xNDB4MTQwPC90ZXh0PjwvZz48L3N2Zz4=" data-holder-rendered="true" style="width: 100%;height:100%;">
+						</div>
+					<div class="col-xs-6" style="height: 140px;padding:30px 5px;">
+						<ul class="info">
+							<li>{{store.title}}</li>
+							<li ng-if="store.category">{{store.category}}</li>
+							<li>{{store.address}}</li>
+							<li>{{store.tel}}</li>
+						</ul>
 					</div>
-				<div class="col-xs-6" style="height: 140px;padding:20px 10px;">{{a.name}}</div>
 				</div>
 			</div>
 	</div>
