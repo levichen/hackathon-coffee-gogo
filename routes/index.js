@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-var key = require('./key');
+var key = require('../key');
 var apiKey = key.key;
 
 var GooglePlaces = require("googleplaces");

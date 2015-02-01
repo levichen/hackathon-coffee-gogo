@@ -6,7 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var cons = require('consolidate');
 var MongoClient = require('mongodb').MongoClient;
-var url = '';
+var url = require('./database');
 var db;
 var routes = require('./routes/index');
 var app = express();
