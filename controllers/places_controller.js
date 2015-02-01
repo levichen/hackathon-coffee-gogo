@@ -7,7 +7,7 @@ module.exports = function(app) {
 		var centerLat = req.query.centerLat;
 		var centerLon = req.query.centerLon;
 		var maxDistance = req.query.maxDistance;
-		var collection = db.collection('restaurant_geo');
+		var collection = db.collection('restaurant_merge');
 
 		if (!maxDistance || !centerLat || !centerLon) {
 			res.status(400).json({'status': 'error', 'message': 'missing some variable'});

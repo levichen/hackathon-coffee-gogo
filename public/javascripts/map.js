@@ -120,6 +120,7 @@ app.controller('index', function($scope, $http, $timeout) {
 				});
 				attachSecretMessage(markers[i], row);
 			};
+            $scope.filter();
 		});
 	};
 	
@@ -140,7 +141,7 @@ app.controller('index', function($scope, $http, $timeout) {
 	$scope.filter = function() {
 		$scope.stores = [];
 		for(var i in stores) {
-			if($scope.type.chName == stores[i].category) {
+			if(!$scope.type || $scope.type.chName == stores[i].category) {
 				$scope.stores.push(stores[i])
 				markers[i].setMap(map);
 			}
