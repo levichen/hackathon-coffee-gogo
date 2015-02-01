@@ -1,5 +1,5 @@
-var NOW_LATITUDE = 25.0329636;
-var NOW_LONGITUDE = 121.56542680000001;
+var NOW_LATITUDE = 25.046254;
+var NOW_LONGITUDE = 121.517532
 
 var key = require('./key');
 var apiKey = key.key;
