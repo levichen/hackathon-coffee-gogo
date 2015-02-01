@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html ng-app="editor">
+<head>
+<title><% @title %></title>
+<link rel="stylesheet" href="/stylesheets/style.css"></link>
+<link rel="stylesheet" href="/bootstrap/dist/css/bootstrap.min.css"></link>
+<link rel="stylesheet" href="/stylesheets/bootstrap.min.css"></link>
+<link rel="stylesheet" href="/bootstrap/dist/css/bootstrap.min.css"></link>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true"></script>
+<style>
+	.input-group {
+		margin: 5;
+	}
+	#main {
+		float: right;
+		top: 47px;
+		right: 0;
+		bottom: 0;
+		width: 40%;
+		overflow-y: scroll;
+		-webkit-overflow-scrolling: touch;
+		background: #f7f7f7;
+	}
+	#map_canvas {
+		float: left;
+		left: 0;
+		bottom: 0;
+		width: 60%;
+		height: 100%;
+	}
+</style>
+</head>
+<body ng-controller="index">
+	<div id="map_canvas" ></div>
+	
+	<div id="main" style="width: 40%; height: 100%; margin: 0px; padding: 0px; float: right; x;overflow-x:hidden;overflow-y:auto;">
+		<table class="table">
+			<tr>
+				<td ng-repeat="name in dataHeader track by name">{{name}}</td>
+			</tr>
+			<tr ng-mouseover="addMarker($index)" ng-repeat="placeInfo in places track by placeInfo.title">
+				<td><a href="https://www.google.com.tw/webhp?hl=zh-TW#hl=zh-TW&q={{placeInfo.title}}">{{placeInfo.title}}</a></td>
+				<td>{{placeInfo.address}}</td>
+				<td>{{placeInfo.tel[0]}}</td>
+			</tr>
+		</table>
+	</div>
+		
+	<div id="editor" class="modal fade">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title">Update Place Info</h4>
+	      </div>
+	      <div class="modal-body">
+				<div class="form-group">
+					<label for="exampleInputEmail1">名稱</label>
+					<input type="text" value="{{editData.title}}" class="form-control" id="exampleInputEmail1" placeholder="Enter name">
+				</div>
+				<div class="form-group">
+					<label for="exampleInputEmail1">地址</label>
+					<input type="text" value="{{editData.address}}" class="form-control" id="exampleInputEmail1" placeholder="Enter address">
+				</div>
+				<div class="form-group">
+					<label for="exampleInputEmail1">電話</label>
+					<input type="text" value="{{editData.tel[0]}}" class="form-control" id="exampleInputEmail1" placeholder="Enter TEL">
+				</div>
+				<div class="form-group">
+					<label for="exampleInputWifi">Wifi</label>
+					<input type="checkbox" value="{{editData.wifi}}" class="form-control" id="exampleInputWifi" placeholder="Have Wifi">
+				</div>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	        <button type="button" ng-click="updatePlaceInfo()" class="btn btn-primary">Save changes</button>
+	      </div>
+	    </div><!-- /.modal-content -->
+	  </div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+	<script src="/javascripts/jquery.min.js"></script>
+	<script src="/bootstrap/dist/js/bootstrap.min.js"></script>
+	<script src="/javascripts/bootstrap.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.11/angular.min.js"></script>
+	<script src="/javascripts/bootstrap-slider.js"></script>
+	<script src="/javascripts/editor.js"></script>
+</body>
+</html>

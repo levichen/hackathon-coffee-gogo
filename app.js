@@ -6,8 +6,8 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var cons = require('consolidate');
 var MongoClient = require('mongodb').MongoClient;
+var ObjectId = require('mongodb').ObjectID;
 var url = require('./database');
-var db;
 var routes = require('./routes/index');
 var app = express();
 
@@ -16,9 +16,14 @@ app.set('view engine', 'html');
 app.set('views', __dirname + '/views');
 
 MongoClient.connect(url, function(err, database) {
-	db = database;
-	app.set('db', database);
-	require('./controllers/places_controller')(app, database);
+	require('./controllers/places_controller')(app, database, ObjectId);
+
+    // catch 404 and forward to error handler
+    app.use(function(req, res, next) {
+        var err = new Error('Not Found');
+        err.status = 404;
+        next(err);
+    });
 });
 
 // uncomment after placing your favicon in /public
@@ -29,13 +34,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
-
-// catch 404 and forward to error handler
-// app.use(function(req, res, next) {
-//     var err = new Error('Not Found');
-//     err.status = 404;
-//     next(err);
-// });
 
 // error handlers
 

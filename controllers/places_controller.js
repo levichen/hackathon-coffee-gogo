@@ -1,39 +1,93 @@
+var express = require('express');
+var router = express.Router();
 
-module.exports = function(app) {
+// module.exports = function(app) {
 
-	var db = app.get('db');
+// 	var db = app.get('db');
 
-	app.get('/places', function(req, res) {
-		var centerLat = req.query.centerLat;
-		var centerLon = req.query.centerLon;
-		var maxDistance = req.query.maxDistance;
-		var collection = db.collection('restaurant_merge');
+	// app.get('/places', function(req, res) {
+	// 	var centerLat = req.query.centerLat;
+	// 	var centerLon = req.query.centerLon;
+	// 	var maxDistance = req.query.maxDistance;
+	// 	var collection = db.collection('restaurant_merge');
 
-		if (!maxDistance || !centerLat || !centerLon) {
-			res.status(400).json({'status': 'error', 'message': 'missing some variable'});
-			res.end();
-		}
+	// 	if (!maxDistance || !centerLat || !centerLon) {
+	// 		res.status(400).json({'status': 'error', 'message': 'missing some variable'});
+	// 		res.end();
+	// 	}
 
-		collection.find({
-			loc: {
-				$near: {
-					$geometry: {
-						type: 'Point',
-						coordinates: [
-							parseFloat(centerLon),
-							parseFloat(centerLat)
-						]
-					},
-					$maxDistance: parseInt(maxDistance)
-				}
-			}
-		}).toArray(function(err, result) {
-			if (err) {
-				res.status(500).json({'status': 'error', 'message': 'db error'});
-			}
-			res.json(result);		
-		});
+	// 	collection.find({
+	// 		loc: {
+	// 			$near: {
+	// 				$geometry: {
+	// 					type: 'Point',
+	// 					coordinates: [
+	// 						parseFloat(centerLon),
+	// 						parseFloat(centerLat)
+	// 					]
+	// 				},
+	// 				$maxDistance: parseInt(maxDistance)
+	// 			}
+	// 		}
+	// 	}).toArray(function(err, result) {
+	// 		if (err) {
+	// 			res.status(500).json({'status': 'error', 'message': 'db error'});
+
+module.exports = function(app, db, ObjectId) {
+
+	app.get('/editor', function(req, res) {
+		res.render('editor', { title: 'Express' });
 	});
+
+	app.route('/places')
+		.get(function(req, res) {
+			var centerLat = req.query.centerLat;
+			var centerLon = req.query.centerLon;
+			var maxDistance = req.query.maxDistance;
+			var collection = db.collection('restaurant_merge');
+			var query = {};
+
+			if (maxDistance && centerLat && centerLon) {
+				query = {
+					loc: {
+						$near: {
+							$geometry: {
+								type: 'Point',
+								coordinates: [
+									parseFloat(centerLon),
+									parseFloat(centerLat)
+								]
+							},
+							$maxDistance: parseInt(maxDistance)
+						}
+					}
+				};
+			}
+
+			collection.find(query).limit(150).toArray(function(err, result) {
+				if (err) {
+					res.status(500).json({'status': 'error', 'message': 'db error'});
+				}
+				res.json(result);		
+			});
+		})
+		.put(function(req, res) {
+			var collection = db.collection('restaurant_merge');
+			var updateData = req.body.data;
+			var id = updateData._id;
+
+			delete updateData._id;
+			collection.update({
+				_id: new ObjectId(id)
+			}, {
+				$set: updateData
+			}, function(err, result) {
+				if (err) {
+					res.status(500).json({'status': 'error', 'message': 'db error'});
+				}
+				res.json({status: 'status', message: ''});
+			});			
+		});
 
 	app.get('/places_type', function(req, res) {
 		var collection = db.collection('restaurant_type');

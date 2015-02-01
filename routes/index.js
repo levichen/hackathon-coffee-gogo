@@ -33,6 +33,10 @@ router.get('/', function(req, res, next) {
     res.render('index', { title: 'Express' });
 });
 
+router.get('/placelist', function(req, res) {
+    res.render('place_list');
+});
+
 router.post('/getContent', function(req, res){
     var latitude = req.body.latitude;
     var longitude = req.body.longitude;
