@@ -1,10 +1,11 @@
 var express = require('express');
 var router = express.Router();
 
-var key = 'AIzaSyDdOMj-nYAGDP2JfwtUy2l-oWOn_dXk0GI';
+var key = require('./key');
+var apiKey = key.key;
 
 var GooglePlaces = require("googleplaces");
-var googlePlaces = new GooglePlaces(key, 'json');
+var googlePlaces = new GooglePlaces(apiKey, 'json');
 
 var latitude;
 var longitude;
